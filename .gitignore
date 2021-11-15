@@ -26,3 +26,4 @@ build
 tmp
 dist
 
+/.idea/repo.iml
