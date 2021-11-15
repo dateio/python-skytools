@@ -420,7 +420,7 @@ def parse_connect_string(cstr: str) -> List[Tuple[str, str]]:
     while pos < len(cstr):
         m = _cstr_rc.match(cstr, pos)
         if not m:
-            raise ValueError('Invalid connect string')
+            raise ValueError('Invalid connect string: %s' % cstr)
         pos = m.end()
         k = m.group(1)
         v = m.group(2)
