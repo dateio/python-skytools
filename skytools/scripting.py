@@ -586,6 +586,9 @@ class BaseScript:
             return
 
         logmsg = "{%s}" % ", ".join(res)
+        if hasattr(self, 'batch_info') and self.batch_info['tick_id']:
+            logmsg = "%d: %s" % (self.batch_info['tick_id'], logmsg)
+
         self.log.info(logmsg)
         self.stat_dict = {}
 
