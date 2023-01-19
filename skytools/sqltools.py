@@ -634,7 +634,7 @@ def mk_update_sql(row: DictRow, tbl: str, pkey_list: Sequence[str], field_map: O
                 col = skytools.quote_ident(col)
                 val = skytools.quote_literal(val)
                 set_list.append("%s = %s" % (col, val))
-    return "update only %s set %s where %s;" % (skytools.quote_fqident(tbl),
+    return "update %s set %s where %s;" % (skytools.quote_fqident(tbl),
                                                 ", ".join(set_list), " and ".join(whe_list))
 
 
@@ -650,5 +650,5 @@ def mk_delete_sql(row: DictRow, tbl: str, pkey_list: Sequence[str], field_map: M
         val = skytools.quote_literal(row[k])
         whe_list.append("%s = %s" % (col, val))
     whe_str = " and ".join(whe_list)
-    return "delete from only %s where %s;" % (skytools.quote_fqident(tbl), whe_str)
+    return "delete from %s where %s;" % (skytools.quote_fqident(tbl), whe_str)
 

@@ -249,7 +249,7 @@ class TableRepair:
             self.addeq(set_list, skytools.quote_ident(f), skytools.unescape_copy(v1))
             self.addcmp(whe_list, skytools.quote_ident(f), skytools.unescape_copy(v2))
 
-        q = "update only %s set %s where %s;" % (
+        q = "update %s set %s where %s;" % (
             self.fq_table_name, ", ".join(set_list), " and ".join(whe_list))
         self.show_fix(q, 'update', fn)
 
@@ -259,7 +259,7 @@ class TableRepair:
         whe_list: List[str] = []
         for f in self.pkey_list:
             self.addcmp(whe_list, skytools.quote_ident(f), skytools.unescape_copy(dst_row[f]))
-        q = "delete from only %s where %s;" % (self.fq_table_name, " and ".join(whe_list))
+        q = "delete from %s where %s;" % (self.fq_table_name, " and ".join(whe_list))
         self.show_fix(q, 'delete', fn)
 
     def show_fix(self, q: str, desc: str, fn: str) -> None:

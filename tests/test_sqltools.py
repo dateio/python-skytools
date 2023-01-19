@@ -105,12 +105,12 @@ def test_mk_insert_sql():
 
 def test_mk_update_sql():
     res = mk_update_sql({'id': 0, 'id2': '2', 'data': 'str\\'}, 'Table', ['id', 'id2'])
-    exp = 'update only public."Table" set data = E\'str\\\\\' where id = \'0\' and id2 = \'2\';'
+    exp = 'update public."Table" set data = E\'str\\\\\' where id = \'0\' and id2 = \'2\';'
     assert res == exp
 
     res = mk_update_sql({'id': 0, 'id2': '2', 'data': 'str\\'}, 'Table', ['id', 'id2'],
                         {'id': '_id', 'id2': '_id2', 'data': '_data'})
-    exp = 'update only public."Table" set _data = E\'str\\\\\' where _id = \'0\' and _id2 = \'2\';'
+    exp = 'update public."Table" set _data = E\'str\\\\\' where _id = \'0\' and _id2 = \'2\';'
     assert res == exp
 
     with pytest.raises(Exception):
@@ -119,11 +119,11 @@ def test_mk_update_sql():
 
 def test_mk_delete_sql():
     res = mk_delete_sql({'a': 1, 'b': 2, 'c': 3}, 'tablename', ['a', 'b'])
-    exp = "delete from only public.tablename where a = '1' and b = '2';"
+    exp = "delete from public.tablename where a = '1' and b = '2';"
     assert res == exp
 
     res = mk_delete_sql({'a': 1, 'b': 2, 'c': 3}, 'tablename', ['a', 'b'], {'a': 'aa', 'b': 'bb'})
-    exp = "delete from only public.tablename where aa = '1' and bb = '2';"
+    exp = "delete from public.tablename where aa = '1' and bb = '2';"
     assert res == exp
 
     with pytest.raises(Exception):
